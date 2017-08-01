@@ -1,25 +1,15 @@
-# ReduxSimpleStarter
+# VideoPlayer
 
-Interested in learning [Redux](https://www.udemy.com/react-redux/)?
+Boiler plate cloned from: https://github.com/StephenGrider/ReduxSimpleStarter.git
+The following modifications were necessary to allow this project to run on Cloud9 at c9.io.
+* options.compress = true;
+* options.disableHostCheck = true;
 
 ### Getting Started
 
-There are two methods for getting started with this repo.
-
-#### Familiar with Git?
-Checkout this repo, install dependencies, then start the gulp process with the following:
-
 ```
-> git clone https://github.com/StephenGrider/ReduxSimpleStarter.git
-> cd ReduxSimpleStarter
-> npm install
-> npm start
-```
-
-#### Not Familiar with Git?
-Click [here](https://github.com/StephenGrider/ReactStarter/releases) then download the .zip file.  Extract the contents of the zip file, then open your terminal, change to the project directory, and:
-
-```
+> git clone
+> cd
 > npm install
 > npm start
 ```
