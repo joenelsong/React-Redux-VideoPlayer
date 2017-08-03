@@ -13,3 +13,7 @@ The following modifications were necessary to allow this project to run on Cloud
 > npm install
 > npm start
 ```
+
+
+## Source Code Notes:
+* onVideoSelect() callback is passed down from App -> VideoList -> VideoListItem

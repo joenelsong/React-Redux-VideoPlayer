@@ -7,6 +7,7 @@
     **/
     
 // react is diverging into 2 different libraries. 1. React Core   2. React DOM
+import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
@@ -30,8 +31,15 @@ class App extends Component { // this is creating a CLASS component, not an inst
       
     };
     
+    // WCS Competition Playlist id: PLFq83EUJZUafRiTaHVS6K_u2ENa-bDshR
     // Populate videos in constructor with a search
-    YTSearch({key: API_KEY, term: 'bachata workshop'}, (videos) => {
+    
+    this.videoSearch("bachata workshop");
+    
+  }
+  
+  videoSearch(term) {
+    YTSearch({key: API_KEY, term: term}, (videos) => {
       //this.setState({ videos }); // in ES6 this willl be equal to this.setState({ videos: videos })
       this.setState({
         videos: videos,
@@ -41,11 +49,17 @@ class App extends Component { // this is creating a CLASS component, not an inst
   }
 
     render() {
+      const videoSearch = _.debounce( (term) => {this.videoSearch(term) }, 400 ) // version of function that can only be called every 300 ms.
+      
+      
        return (
          <div>
-           <SearchBar />
+           <h1 align="center">Stripped-down Youtube Player with Immediate Search</h1>
+           <SearchBar onSearchTermChange={term=> videoSearch(term)}/>
            <VideoDetail video={this.state.selectedVideo}/>
-           <VideoList videos={this.state.videos} />
+           <VideoList
+             onVideoSelect={selectedVideo => this.setState({selectedVideo}) }
+             videos={this.state.videos} />
          </div>  //html stuff in javascript is JSX, JSX gets transpiled into javascript
       );
     }
