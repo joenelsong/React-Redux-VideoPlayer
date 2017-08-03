@@ -7,20 +7,48 @@
     **/
     
 // react is diverging into 2 different libraries. 1. React Core   2. React DOM
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
-import SearchBar from './components/search_bar';
-
+import YTSearch from 'youtube-api-search';
 const API_KEY ='AIzaSyAmTKbCVG_ES6RZV1mXiqFdwhaJjY8aHDU';
+import SearchBar from './components/search_bar';
+import VideoList from './components/video_list';
+import VideoDetail from './components/video_detail';
+
+
+
+
 
 // Create a new component. This component should produce some HTML
-const App = () => { // this is creating a CLASS component, not an instance Component
-    return (
-      <div>
-        <SearchBar />
-      </div>  //html stuff in javascript is JSX, JSX gets transpiled into javascript
-    );
+class App extends Component { // this is creating a CLASS component, not an instance Component
+  constructor(props) {
+    super(props);
+    
+    this.state = { 
+      videos: [],
+      selectedVideo: null
+      
+    };
+    
+    // Populate videos in constructor with a search
+    YTSearch({key: API_KEY, term: 'bachata workshop'}, (videos) => {
+      //this.setState({ videos }); // in ES6 this willl be equal to this.setState({ videos: videos })
+      this.setState({
+        videos: videos,
+        selectedVideo: videos[0]
+      });
+    });
+  }
+
+    render() {
+       return (
+         <div>
+           <SearchBar />
+           <VideoDetail video={this.state.selectedVideo}/>
+           <VideoList videos={this.state.videos} />
+         </div>  //html stuff in javascript is JSX, JSX gets transpiled into javascript
+      );
+    }
 }
 
 
